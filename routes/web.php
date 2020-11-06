@@ -22,3 +22,8 @@ Route::get('/hanko_pdf', function () {
     // $member = Faker\Factory::create('ja_JP');
     return PDF::loadView('hanko')->inline();
 });
+
+Route::get('/hanko_image_pdf', function () {
+    // $member = Faker\Factory::create('ja_JP');
+    return PDF::loadView('hanko_image')->inline();
+});

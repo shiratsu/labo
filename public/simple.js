@@ -34,13 +34,47 @@ loadingTask.promise.then(function(pdf) {
     renderTask.promise.then(function () {
       console.log('Page rendered');
     });
-
+    // startup();
     make_base(context);
   });
 }, function (reason) {
   // PDF loading error
   console.error(reason);
 });
+
+
+
+function startup() {
+    
+    var el = document.getElementById("the-canvas");
+    el.addEventListener( "mousedown", onDown, false );
+    el.addEventListener( "mouseup", onUp, false );
+    el.addEventListener( "touchstart", onDown, false );
+    el.addEventListener( "touchend", onUp, false );
+    // el.addEventListener("touchend", handleEnd, false);
+    // el.addEventListener("touchcancel", handleCancel, false);
+    // el.addEventListener("touchmove", handleMove, false);
+}
+
+function onDown ( e ) {
+    var x = e.pageX,
+        y = e.pageY;
+ 
+    // x -= el.offsetLeft;
+    // y -= el.offsetTop;
+
+    console.log("taptap");
+    console.log("x:"+x);
+    console.log("y:"+y);
+}
+ 
+function onUp () {
+ 
+}
+
+document.addEventListener("DOMContentLoaded", startup);
+
+
 
 
 function make_base(context){

@@ -35,7 +35,7 @@ loadingTask.promise.then(function(pdf) {
       console.log('Page rendered');
     });
     // startup();
-    make_base(context);
+    // make_base(context);
   });
 }, function (reason) {
   // PDF loading error
@@ -66,6 +66,8 @@ function onDown ( e ) {
     console.log("taptap");
     console.log("x:"+x);
     console.log("y:"+y);
+
+    put_hanko(x-10,y-10);
 }
  
 function onUp () {
@@ -86,5 +88,20 @@ function make_base(context){
         base_image.width = 40;
         base_image.height = 40;
         context.drawImage(base_image, 490, 620,40,40);
+    }
+}
+
+function put_hanko(x,y){
+    base_image = new Image();
+    base_image.src = 'http://localhost:8000/image_composite.php';
+
+    var canvas = document.getElementById('the-canvas');
+    var context = canvas.getContext('2d');
+    
+
+    base_image.onload = function(){
+        base_image.width = 40;
+        base_image.height = 40;
+        context.drawImage(base_image, x, y,40,40);
     }
 }

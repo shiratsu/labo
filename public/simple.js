@@ -7,15 +7,15 @@ var pdfjsLib = window['pdfjs-dist/build/pdf'];
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.js';
 
 // Asynchronous download of PDF
-var loadingTask = pdfjsLib.getDocument("https://labo.test/base_pdf");
+var loadingTask = pdfjsLib.getDocument("http://localhost:8000/base_pdf");
 loadingTask.promise.then(function(pdf) {
   console.log('PDF loaded');
-  
+
   // Fetch the first page
   var pageNumber = 1;
   pdf.getPage(pageNumber).then(function(page) {
     console.log('Page loaded');
-    
+
     var scale = 1.5;
     var viewport = page.getViewport({scale: scale});
 
@@ -45,7 +45,7 @@ loadingTask.promise.then(function(pdf) {
 
 
 function startup() {
-    
+
     var el = document.getElementById("the-canvas");
     el.addEventListener( "mousedown", onDown, false );
     el.addEventListener( "mouseup", onUp, false );
@@ -59,7 +59,7 @@ function startup() {
 function onDown ( e ) {
     var x = e.pageX,
         y = e.pageY;
- 
+
     // x -= el.offsetLeft;
     // y -= el.offsetTop;
 
@@ -67,11 +67,11 @@ function onDown ( e ) {
     console.log("x:"+x);
     console.log("y:"+y);
 
-    put_hanko(x-10,y-10);
+    put_hanko(x-20,y-20);
 }
- 
+
 function onUp () {
- 
+
 }
 
 document.addEventListener("DOMContentLoaded", startup);
@@ -81,8 +81,8 @@ document.addEventListener("DOMContentLoaded", startup);
 
 function make_base(context){
     base_image = new Image();
-    base_image.src = 'http://localhost:8000/image_composite.php';
-    
+    base_image.src = 'http://localhost:8001/image_composite.php';
+
 
     base_image.onload = function(){
         base_image.width = 40;
@@ -92,16 +92,16 @@ function make_base(context){
 }
 
 function put_hanko(x,y){
-    base_image = new Image();
-    base_image.src = 'http://localhost:8000/image_composite.php';
+    hanko_image = new Image();
+    hanko_image.src = 'http://localhost:8001/image_composite.php';
 
     var canvas = document.getElementById('the-canvas');
     var context = canvas.getContext('2d');
-    
 
-    base_image.onload = function(){
-        base_image.width = 40;
-        base_image.height = 40;
-        context.drawImage(base_image, x, y,40,40);
+
+    hanko_image.onload = function(){
+      hanko_image.width = 40;
+      hanko_image.height = 40;
+      context.drawImage(hanko_image, x, y,40,40);
     }
 }
